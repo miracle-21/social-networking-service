@@ -1,9 +1,12 @@
+import imp
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import CreateAPIView
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
-from posts.models import Post
-from posts.serializers import PostListSerializer
+from posts.models import Post, Tag
+from posts.serializers import PostListSerializer, CreateSerializer
 
 class PostPageNumberPagination(PageNumberPagination):
     page_size = 10 # 페이지 당 디폴트 게시글 수 10개
@@ -24,6 +27,11 @@ class PostViewSet(ModelViewSet):
 
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+class CreateViewSet(CreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = CreateSerializer
+
 #     def get_serializer_context(self):
 #         return {
 #             'request': None,
