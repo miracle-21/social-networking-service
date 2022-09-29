@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from posts.models import Post, Tag
+from posts.models import Post, Tag, Comment
 
 
 class PostListSerializer(serializers.ModelSerializer):
@@ -10,7 +10,6 @@ class PostListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        ordering = ['-id']
         fields = '__all__'
         
 class CreateSerializer(serializers.ModelSerializer):
@@ -61,28 +60,11 @@ class CreateSerializer(serializers.ModelSerializer):
                 p1.save()
         return p1
 
-        # t1 = Tag(validated_data['tag'])
-        # t1.save()
-        # p1 = Post(
-        #     title = validated_data['title'],
-        #     content = validated_data['content']
-        # )
-        # p1.save()
-        # p1.tag.add(t1)
-        # p1.save()
-        # return p1
- 
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
 
-
-# class PostRetrieveSerializer(serializers.ModelSerializer):
-#     category = serializers.StringRelatedField()
-#     tags = serializers.StringRelatedField(many=True)
-    
-#     class Meta:
-#         model = Post
-#         fields = '__all__'  
-
-# class CommentSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Comment
-#         fields = '__all__'
+class PostSerializerDetail(serializers.Serializer):
+    post = PostListSerializer()
+    commentList = CommentSerializer(many=True)
