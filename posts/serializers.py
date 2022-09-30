@@ -4,6 +4,9 @@ from posts.models import Post, Tag, Comment
 
 
 class PostListSerializer(serializers.ModelSerializer):
+    '''
+    메인페이지
+    '''
     like = serializers.IntegerField(default=0, read_only=True)
     view = serializers.IntegerField(default=0, read_only=True)
     tag = serializers.StringRelatedField(many=True)
@@ -26,7 +29,7 @@ class CreateSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
    
-    # 게시물 작성
+    # 게시물 작성: tag
     def create(self, validated_data):
         if 'image' in validated_data.keys():
             p1 = Post(
@@ -61,10 +64,16 @@ class CreateSerializer(serializers.ModelSerializer):
         return p1
 
 class CommentSerializer(serializers.ModelSerializer):
+    '''
+    댓글
+    '''
     class Meta:
         model = Comment
         fields = '__all__'
 
-class PostSerializerDetail(serializers.Serializer):
+class PostDetailSerializer(serializers.Serializer):
+    '''
+    상세페이지
+    '''
     post = PostListSerializer()
-    commentList = CommentSerializer(many=True)
+    commentList = CommentSerializer(many=True, read_only=True)

@@ -1,11 +1,11 @@
-import imp
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import GenericAPIView, CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
 from posts.models import Post, Comment
-from posts.serializers import PostListSerializer, CreateSerializer, CommentSerializer, PostSerializerDetail
+from posts.serializers import PostListSerializer, CreateSerializer, CommentSerializer, PostDetailSerializer
+
 
 class PostPageNumberPagination(PageNumberPagination):
     '''
@@ -22,23 +22,18 @@ class PostViewSet(ModelViewSet):
     '''
     메인페이지
     '''
-    def view(self, request, *args, **kwargs):
-        instance = self.get_object() # DB에서 인스턴스 꺼내기
-        instance.view += 1 # 조회 시마다 조회수 +1
-        instance.save()
 
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
-
-class PostRetrieveListAPIView(RetrieveAPIView):
+class PostDetailListAPIView(RetrieveUpdateDestroyAPIView):
     '''
-    상세페이지
+    상세페이지 조회/수정/삭제
     '''
     queryset = Post.objects.all()
-    serializer_class = PostSerializerDetail
+    serializer_class = PostDetailSerializer
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
+        instance.view += 1 # 조회 시마다 조회수 +1
+        instance.save()
         commentList = instance.comment_set.all()
         data = {
             'post': instance,
@@ -59,6 +54,7 @@ class PostLikeAPIView(GenericAPIView):
     queryset = Post.objects.all()
     '''
     좋아요 기능
+    NOTICE: 한 사람당 좋아요 개수 제한이 없다. 좋아요 취소는 안된다.
     '''
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -69,7 +65,7 @@ class PostLikeAPIView(GenericAPIView):
 
 class CommentCreateAPIView(CreateAPIView):
     '''
-    댓글 추가
+    댓글 
     '''
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer

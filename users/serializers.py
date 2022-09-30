@@ -9,6 +9,9 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'is_staff']
 
     def create(self, validated_data):
+        '''
+        회원가입
+        '''
         user = User.objects.create_user(
             username = validated_data['username'],
             email    = validated_data['email'],
@@ -17,5 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
     def destroy(self, request):
+        '''
+        회원탈퇴
+        '''
         user = self.get_object()
         user.delete()
