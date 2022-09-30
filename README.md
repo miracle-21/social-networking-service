@@ -7,7 +7,7 @@
 5. [기술 스택](#-기술-스택)
 6. [API Endpoints](#api-endpoints)
 7. [ERD](#-erd)
-8. [API 명세서](#-api-명세서)
+8. [참조 문서](#-참조-)
 
 ## 🚀Posting Service
 SNS에 접속하여 게시물을 업로드 하거나 다른 사람의 게시물을 확인하고, 좋아요를 누를 수 있다.
