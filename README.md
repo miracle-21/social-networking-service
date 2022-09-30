@@ -52,31 +52,20 @@ Language | Framework | Database | HTTP | Tools
 
 
 ## 📚 ERD
-![](https://velog.velcdn.com/images/miracle-21/post/6e8dad6b-ca12-4e62-9f18-690fa72faf31/image.png)
-1. User
-- 회원 정보
-- 보완할 부분: 로그인 시 토큰이 발급되지만 아직 사용되는 곳이 없다.
+![](https://velog.velcdn.com/images/miracle-21/post/badea2b8-6c6e-494a-8ef5-ea309837c689/image.png)
 
-2. Holding
-- 투자 종목의 종목명, ISIN, 현재가, 자산그룹 정보
+#### 1. 상세페이지
 
-3. Acccount
-- 회원 계좌의 계좌명, 계좌번호, 총 자산 정보
+![](https://velog.velcdn.com/images/miracle-21/post/27ebb8e7-0aca-45f2-a01d-23e2bb87c408/image.png)
 
-4. Investment
-- 증권사 이름, 투자원금 정보
+#### 2. 댓글
 
-5. HoldingsRegist
-- 거래 전 거래 정보를 hashing한 정보.
-- 거래정보: 회원 계좌번호, 회원 이름, 종목명, 거래량
-- 계좌번호는 JWT, 거래량은 해시 테이블 사용.
-![](https://velog.velcdn.com/images/miracle-21/post/8829083d-73b6-427d-99e2-dd57d7e040da/image.png)
+![](https://velog.velcdn.com/images/miracle-21/post/c50a03f1-515a-4b07-bfe6-c41b8cd70303/image.png)
 
-6. FinalHolding
-- HoldingsRegist에서 등록한 거래정보 검증 후 실제 고객의 자산을 업데이트.
 
 ## 🔖 참조 문서
-- [postman API 링크](https://documenter.getpostman.com/view/18832289/2s7Z7YJuGb)
+- [postman API 링크](https://documenter.getpostman.com/view/18832289/2s83tCLDXm)
 
-![](https://velog.velcdn.com/images/miracle-21/post/4578c1c3-016c-4bde-9ee1-9273abde90ed/image.gif)
+![](https://velog.velcdn.com/images/miracle-21/post/8d1a41ff-ba3c-401b-b254-c5a3aba25f12/image.gif)
+
 
